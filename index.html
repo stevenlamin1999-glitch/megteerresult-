@@ -177,23 +177,24 @@ body{
   </div>
 
 </div>
-
 <script>
-function loadResults(){
-  var saved = JSON.parse(localStorage.getItem("megteer_results") || "{}");
-  var keys = Object.keys(saved).sort().reverse();
-  if(keys.length === 0) return;
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTb7w4wPmCuJVa0h9hznPAc92ye2hU6sjAhaVXXXRayaft74WXok5tdH7rHETTPyeghXEO_SIK5paZT4/pub?output=csv";
 
-  var d = saved[keys[0]];
+fetch(SHEET_URL)
+  .then(res => res.text())
+  .then(data => {
+    const rows = data.split("\n").slice(1); // skip header
+    const last = rows[rows.length - 1].split(",");
 
-  document.getElementById("sh-result").textContent = d.shFR ? d.shFR + " - " + d.shSR : "--";
-  document.getElementById("kh-result").textContent = d.khFR ? d.khFR + " - " + d.khSR : "--";
-  document.getElementById("lt-result").textContent = d.ltFR ? d.ltFR + " - " + d.ltSR : "--";
-  document.getElementById("jw-result").textContent = d.jwJ ? d.jwJ + " | " + d.jwL : "--";
-}
-
-loadResults();
+    // CHANGE INDEX BASED ON YOUR SHEET COLUMNS
+    document.getElementById("sh-result").textContent = last[1] + " - " + last[2];
+    document.getElementById("kh-result").textContent = last[4] + " - " + last[5];
+    document.getElementById("lt-result").textContent = last[7] + " - " + last[8];
+    document.getElementById("jw-result").textContent = last[10] + " | " + last[11];
+  })
+  .catch(err => {
+    console.log("Error loading sheet:", err);
+  });
 </script>
-
 </body>
 </html>
