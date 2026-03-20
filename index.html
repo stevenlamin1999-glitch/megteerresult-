@@ -36,21 +36,56 @@ Jowai: <div class="result" id="jw-result">--</div>
 </div>
 
 <script>
-const SHEET_URL = "PASTE YOUR GOOGLE SHEET CSV LINK HERE";
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTb7w4wPmCuJVa0h9hznPAc92ye2hU6sjAhaVXXXRayaft74WXok5tdH7rHETTPyeghXEO_SIK5paZT4/pub?output=csv";
 
 fetch(SHEET_URL)
-.then(res=>res.text())
-.then(data=>{
-  const rows=data.trim().split("\n");
-  rows.shift();
-  const valid=rows.filter(r=>r.trim()!="");
-  const last=valid[valid.length-1].split(",");
+.then(res => res.text())
+.then(data => {
+  const rows = data.trim().split("\n");
 
-  document.getElementById("sh-result").textContent=last[1]+"-"+last[2];
-  document.getElementById("kh-result").textContent=last[3]+"-"+last[4];
-  document.getElementById("lt-result").textContent=last[5]+"-"+last[6];
-  document.getElementById("jw-result").textContent=last[8]+"|"+last[9];
-});
+  // Remove header row
+  rows.shift();
+
+  // Get LAST FILLED ROW (important fix)
+  let lastRow = null;
+  for (let i = rows.length - 1; i >= 0; i--) {
+    if (rows[i].trim() !== "") {
+      lastRow = rows[i];
+      break;
+    }
+  }
+
+  if (!lastRow) return;
+
+  const cols = lastRow.split(",");
+
+  // CORRECT COLUMN MAPPING
+  const shFR = cols[1];
+  const shSR = cols[2];
+
+  const khFR = cols[3];
+  const khSR = cols[4];
+
+  const ltFR = cols[5];
+  const ltSR = cols[6];
+
+  const jwJ  = cols[8];
+  const jwL  = cols[9];
+
+  // DISPLAY (with safety fallback)
+  document.getElementById("sh-result").textContent =
+    (shFR || "--") + " - " + (shSR || "--");
+
+  document.getElementById("kh-result").textContent =
+    (khFR || "--") + " - " + (khSR || "--");
+
+  document.getElementById("lt-result").textContent =
+    (ltFR || "--") + " - " + (ltSR || "--");
+
+  document.getElementById("jw-result").textContent =
+    (jwJ || "--") + " | " + (jwL || "--");
+})
+.catch(err => console.log("Error:", err));
 </script>
 
 </body>
