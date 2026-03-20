@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Shillong Teer Result</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+body{font-family:sans-serif;text-align:center;background:#f5f5f5}
+.card{background:#fff;padding:20px;margin:20px;border-radius:10px}
+.num{font-size:40px;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<h2>Shillong Teer Result</h2>
+
+<div class="card">
+  <div>First Round</div>
+  <div class="num" id="fr">--</div>
+</div>
+
+<div class="card">
+  <div>Second Round</div>
+  <div class="num" id="sr">--</div>
+</div>
+
+<script>
+var d = JSON.parse(localStorage.getItem("megteer_results")||"{}");
+var k = Object.keys(d).sort().reverse()[0];
+if(k){
+  document.getElementById("fr").textContent = d[k].shFR || "--";
+  document.getElementById("sr").textContent = d[k].shSR || "--";
+}
+</script>
+
+</body>
+</html>
