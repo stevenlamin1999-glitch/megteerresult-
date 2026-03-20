@@ -1,36 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Khanapara Teer Result</title>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Khanapara Teer Result</title>
+
 <style>
-body{text-align:center;font-family:sans-serif;background:#f5f5f5}
-.card{background:#fff;padding:20px;margin:20px;border-radius:10px}
-.num{font-size:40px;font-weight:bold}
+body{
+  font-family: Arial;
+  background:#f5f5f5;
+  text-align:center;
+  padding:20px;
+}
+
+h1{
+  color:#1A6EE0;
+}
+
+.box{
+  background:#fff;
+  padding:20px;
+  margin:10px auto;
+  max-width:400px;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.number{
+  font-size:40px;
+  font-weight:bold;
+}
+
+.back{
+  margin-top:20px;
+  display:inline-block;
+  text-decoration:none;
+  background:#1A6EE0;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:6px;
+}
 </style>
 </head>
 
 <body>
 
-<h2>Khanapara Teer Result</h2>
+<h1>Khanapara Teer Result</h1>
 
-<div class="card">
-  <div>FR</div>
-  <div class="num" id="fr">--</div>
+<div class="box">
+  <p>First Round (FR)</p>
+  <div class="number" id="fr">--</div>
 </div>
 
-<div class="card">
-  <div>SR</div>
-  <div class="num" id="sr">--</div>
+<div class="box">
+  <p>Second Round (SR)</p>
+  <div class="number" id="sr">--</div>
 </div>
+
+<a href="index.html" class="back">⬅ Back</a>
 
 <script>
-var d = JSON.parse(localStorage.getItem("megteer_results")||"{}");
-var k = Object.keys(d).sort().reverse()[0];
-if(k){
-  document.getElementById("fr").textContent = d[k].khFR || "--";
-  document.getElementById("sr").textContent = d[k].khSR || "--";
-}
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTb7w4wPmCuJVa0h9hznPAc92ye2hU6sjAhaVXXXRayaft74WXok5tdH7rHETTPyeghXEO_SIK5paZT4/pub?output=csv";
+
+fetch(SHEET_URL)
+.then(res => res.text())
+.then(data => {
+  const rows = data.trim().split("\n");
+  rows.shift();
+
+  let lastRow = null;
+  for (let i = rows.length - 1; i >= 0; i--) {
+    if (rows[i].trim() !== "") {
+      lastRow = rows[i];
+      break;
+    }
+  }
+
+  if (!lastRow) return;
+
+  const last = lastRow.split(",");
+
+  document.getElementById("fr").textContent = last[3] || "--";
+  document.getElementById("sr").textContent = last[4] || "--";
+})
+.catch(err => console.log(err));
 </script>
 
 </body>
