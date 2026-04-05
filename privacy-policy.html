@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy - MegTeerResults</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E02020;--red2:#FF4444;--red-light:#FFF0F0;--red-border:#FFCCCC;
+  --dark:#1A1A1A;--text:#222222;--muted:#888888;--border:#E8E8E8;
+  --bg:#FFFFFF;--card:#FFFFFF;--card2:#FAFAFA;
+  --green:#1AA05A;--blue:#1A6EE0;--orange:#E07020;
+  --radius:12px;--radius-sm:7px;
+  --shadow:0 2px 12px rgba(0,0,0,0.07);--shadow-hover:0 6px 24px rgba(0,0,0,0.13);
+}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%}
+body{background:#F5F5F5;color:var(--text);font-family:'Noto Sans',sans-serif;font-size:15px;min-height:100vh;overflow-x:hidden;width:100%}
+
+/* HEADER */
+.site-header{background:var(--red);text-align:center;padding:22px 16px 18px}
+.site-logo{font-family:'Baloo 2',cursive;font-size:clamp(22px,6vw,38px);font-weight:800;color:#fff;letter-spacing:.5px}
+.site-logo span{color:rgba(255,255,255,0.75)}
+.site-tagline{font-size:12px;color:rgba(255,255,255,0.7);margin-top:4px;letter-spacing:.3px}
+.live-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:3px 12px;font-size:11px;font-weight:600;margin-top:10px;letter-spacing:.5px}
+.live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* DATE BAR */
+.date-bar{background:#fff;border-bottom:1px solid var(--border);padding:9px 16px;text-align:center;font-size:13px;color:var(--muted)}
+.date-bar strong{color:var(--text)}
+
+/* NAV */
+.page-nav{background:#fff;border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:auto;width:100%;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+.page-nav::-webkit-scrollbar{display:none}
+.nav-link{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 4px 7px;text-decoration:none;color:#aaa;font-family:'Noto Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:.4px;white-space:nowrap;transition:all .2s;text-transform:uppercase;border-bottom:3px solid transparent;position:relative}
+.nav-link .nav-icon{font-size:18px;line-height:1;transition:transform .2s}
+.nav-link:hover{color:var(--text);background:#fafafa}
+.nav-link:hover .nav-icon{transform:translateY(-2px)}
+.nav-link.active{color:var(--red);border-bottom-color:var(--red);background:#fff8f8}
+.nav-link.active .nav-icon{transform:translateY(-2px)}
+
+/* MAIN */
+.main{max-width:860px;margin:0 auto;padding:28px 14px 60px}
+
+/* POLICY CARD */
+.policy-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);margin-bottom:20px}
+.policy-title{font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:var(--red);margin-bottom:6px}
+.policy-updated{font-size:12px;color:var(--muted);margin-bottom:24px}
+.policy-section{margin-bottom:24px}
+.policy-section h2{font-family:'Baloo 2',cursive;font-size:17px;font-weight:700;color:var(--text);margin-bottom:8px;padding-bottom:6px;border-bottom:1.5px solid var(--border)}
+.policy-section p{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:10px}
+.policy-section ul{padding-left:20px;margin-top:6px}
+.policy-section ul li{font-size:14px;color:var(--text);line-height:1.8;margin-bottom:4px}
+.contact-box{background:var(--red-light);border:1.5px solid var(--red-border);border-radius:var(--radius-sm);padding:14px 18px;margin-top:10px}
+.contact-box a{color:var(--red);font-weight:600;text-decoration:none}
+.contact-box a:hover{text-decoration:underline}
+
+/* DISCLAIMER */
+.disclaimer{text-align:center;padding:18px 16px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);margin-top:24px;line-height:2}
+
+@media(max-width:580px){
+  .policy-card{padding:18px 14px}
+  .nav-link{padding:11px 12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-logo"><img src="data:image/jpeg;base64,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" alt="MegTeerResults Logo" style="width:48px;height:48px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px;box-shadow:0 2px 8px rgba(0,0,0,0.3)"> Meg<span>TeerResults</span></div>
+  <div class="site-tagline">Shillong &middot; Khanapara &middot; Laitlynkot &middot; Jowai &middot; Ladrymbai</div>
+  <div class="live-badge"><span class="live-dot"></span> Live Results Updated Daily</div>
+</header>
+<div class="date-bar" id="dateBar">Loading...</div>
+<nav class="page-nav">
+  <a href="index.html" class="nav-link"><span class="nav-icon">&#127968;</span>Home</a>
+  <a href="shillong-teer-result.html" class="nav-link"><span class="nav-icon">&#127963;</span>Shillong</a>
+  <a href="khanapara-teer-result.html" class="nav-link"><span class="nav-icon">&#129413;</span>Khanapara</a>
+  <a href="laitlynkot-teer-result.html" class="nav-link"><span class="nav-icon">&#127807;</span>Laitlynkot</a>
+  <a href="jowai-ladrymbai-teer-result.html" class="nav-link"><span class="nav-icon">&#9968;</span>Jowai</a>
+  <a href="teer-dream-numbers.html" class="nav-link"><span class="nav-icon">&#127769;</span>Dreams</a>
+  <a href="shillong-teer-common-number-1.html" class="nav-link"><span class="nav-icon">&#127919;</span>SH Common</a>
+  <a href="khanapara-teer-common-number-1.html" class="nav-link"><span class="nav-icon">&#127919;</span>KH Common</a>
+  <a href="laitlynkot-teer-common-number.html" class="nav-link"><span class="nav-icon">&#127919;</span>LT Common</a>
+</nav>
+<main class="main">
+  <div class="policy-card">
+    <div class="policy-title">&#128274; Privacy Policy</div>
+    <div class="policy-updated">Last updated: March 2026</div>
+
+    <div class="policy-section">
+      <p>Welcome to <strong>Meg Teer Results</strong>. At our website, we value the privacy of our visitors. This Privacy Policy document outlines the types of information that are collected and recorded by Meg Teer Results and how we use it.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Information We Collect</h2>
+      <p>We may collect personal information such as your name and email address when you contact us directly. We do not collect any sensitive personal information.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect in various ways, including:</p>
+      <ul>
+        <li>To operate and maintain our website</li>
+        <li>To improve user experience</li>
+        <li>To respond to inquiries and provide support</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Log Files</h2>
+      <p>Meg Teer Results follows a standard procedure of using log files. These files log visitors when they visit websites. The information collected may include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Cookies and Web Beacons</h2>
+      <p>We use cookies to store information about visitors' preferences and to optimize the experience by customizing our web page content based on visitors' browser type or other information.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Google AdSense</h2>
+      <p>We may use Google AdSense to display advertisements. Google uses cookies, including the DART cookie, to serve ads to users based on their visit to our website and other websites on the internet. Users may opt out of the use of the DART cookie by visiting <a href="https://adssettings.google.com" target="_blank" style="color:var(--red)">Google Ads Settings</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Third-Party Privacy Policies</h2>
+      <p>Meg Teer Results' Privacy Policy does not apply to other advertisers or websites. We advise you to consult the respective Privacy Policies of third-party ad servers for more detailed information.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Children's Information</h2>
+      <p>We do not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe that your child has provided this kind of information on our website, please contact us immediately and we will do our best to promptly remove such information from our records.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Consent</h2>
+      <p>By using our website, you hereby consent to our Privacy Policy and agree to its terms.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
+      <div class="contact-box">
+        &#128231; <span style="color:var(--red);font-weight:600">megteerresults [at] gmail [dot] com</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    &#127989; MegTeerResults is for educational and entertainment purposes only.<br>
+    Teer is legal in Meghalaya under the Meghalaya Amusements &amp; Betting Tax Act, 1982.<br>
+    Results sourced from official Teer association websites. Updated daily Mon&ndash;Sat. Play responsibly.
+  </div>
+</main>
+<script>
+window.addEventListener('DOMContentLoaded',function(){initDateBar();});
+function initDateBar(){
+  const now=new Date();
+  const el=document.getElementById('dateBar');
+  if(el) el.innerHTML='T
