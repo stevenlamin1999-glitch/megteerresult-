@@ -1,0 +1,51 @@
+name: Update Daily Dates in Titles
+
+on:
+  schedule:
+    - cron: '30 0 * * 1-6'
+  workflow_dispatch:
+
+jobs:
+  update-dates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update dates in all HTML files
+        run: |
+          DATE=$(date +'%d %b %Y')
+          echo "Today's date: $DATE"
+
+          FILES=(
+            "index.html"
+            "shillong-teer-result.html"
+            "shillong-teer-previous-result.html"
+            "shillong-teer-common-number.html"
+            "khanapara-teer-result.html"
+            "khanapara-teer-previous-result.html"
+            "khanapara-teer-common-number.html"
+            "laitlynkot-teer-result.html"
+            "laitlynkot-teer-previous-result.html"
+            "laitlynkot-teer-common-number.html"
+            "jowai-ladrymbai-teer-result.html"
+            "jowai-ladrymbai-teer-previous-result.html"
+          )
+
+          for FILE in "${FILES[@]}"; do
+            if [ -f "$FILE" ]; then
+              sed -i "s/\[ [0-9]\{2\} [A-Za-z]\{3\} [0-9]\{4\} \]/[ $DATE ]/g" "$FILE"
+              echo "Updated: $FILE"
+            else
+              echo "Skipped (not found): $FILE"
+            fi
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add *.html
+          git diff --staged --quiet || git commit -m "Auto update: date titles $(date +'%d %b %Y')"
+          git push
