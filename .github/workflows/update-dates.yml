@@ -2,8 +2,11 @@ name: Update Daily Dates in Titles
 
 on:
   schedule:
-    - cron: '30 0 * * 1-6'   # 6:00 AM IST (00:30 UTC) Monday to Saturday
-  workflow_dispatch:         # Allows manual run from Actions tab
+    - cron: '30 18 * * *'  # 12:00 AM IST every day (18:30 UTC previous day)
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update-dates:
@@ -13,13 +16,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update dates in HTML files
+      - name: Update dates in live pages and sitemap
         run: |
-          # Get today's date in the format: 28 Sep 2026
-          DATE=$(date +'%d %b %Y')
-          echo "Updating titles to: $DATE"
+          # Use India time, otherwise the date is wrong at 18:30 UTC
+          DATE=$(TZ='Asia/Kolkata' date +'%d %b %Y')
+          ISODATE=$(TZ='Asia/Kolkata' date +'%Y-%m-%d')
+          echo "Today (IST): $DATE | ISO: $ISODATE"
 
-          # List of files that contain the date in the title
           FILES=(
             "index.html"
             "shillong-teer-result.html"
@@ -30,18 +33,35 @@ jobs:
 
           for FILE in "${FILES[@]}"; do
             if [ -f "$FILE" ]; then
-              # This replaces any date that looks like [ 01 Sep 2026 ] with today's date
-              sed -i -E "s/\[ [0-9]{1,2} [A-Za-z]{3} [0-9]{4} \]/[ $DATE ]/g" "$FILE"
-              echo "✅ Updated: $FILE"
+              # Title: [ 30 Sep 2026 ]
+              sed -i "s/\[ [0-9]\{2\} [A-Za-z]\{3\} [0-9]\{4\} \]/[ $DATE ]/g" "$FILE"
+              # Meta description: LIVE 30 Sep 2026
+              sed -i "s/LIVE [0-9]\{2\} [A-Za-z]\{3\} [0-9]\{4\}/LIVE $DATE/g" "$FILE"
+              # JSON-LD dateModified (only if the page has it)
+              sed -i "s/\"dateModified\": *\"[0-9-]*\"/\"dateModified\": \"$ISODATE\"/g" "$FILE"
+              echo "Updated: $FILE"
             else
-              echo "⚠️ File not found: $FILE"
+              echo "MISSING: $FILE"
             fi
           done
+
+          # Sitemap: change lastmod ONLY for the 5 live pages
+          # (the <lastmod> line comes right after each <loc> line)
+          if [ -f "sitemap.xml" ]; then
+            sed -i "\|<loc>https://megteerresults.in/</loc>|{n;s|<lastmod>.*</lastmod>|<lastmod>$ISODATE</lastmod>|}" sitemap.xml
+            for FILE in "${FILES[@]}"; do
+              [ "$FILE" = "index.html" ] && continue
+              sed -i "\|<loc>https://megteerresults.in/$FILE</loc>|{n;s|<lastmod>.*</lastmod>|<lastmod>$ISODATE</lastmod>|}" sitemap.xml
+            done
+            echo "Updated sitemap.xml"
+          else
+            echo "MISSING: sitemap.xml (not in repo root)"
+          fi
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html shillong-teer-result.html khanapara-teer-result.html laitlynkot-teer-result.html jowai-ladrymbai-teer-result.html
-          git diff --staged --quiet || git commit -m "Auto update dates to $(date +'%d %b %Y')"
+          git add index.html shillong-teer-result.html khanapara-teer-result.html laitlynkot-teer-result.html jowai-ladrymbai-teer-result.html sitemap.xml
+          git diff --staged --quiet || git commit -m "Auto update: dates $(TZ='Asia/Kolkata' date +'%d %b %Y')"
           git push
